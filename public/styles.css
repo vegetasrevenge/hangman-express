@@ -1,0 +1,18 @@
+
+body {
+  width: 50%;
+  height: 600px;
+  display: flex;
+  align-content: center;
+  margin: 0 auto;
+  background-color: #45FFA7
+}
+
+.container {
+  margin-top: 250px;
+  width: 100%;
+  text-align: center;
+  background-color: #FFFE52;
+  color: grey;
+  border: solid 2px #E8B30C;
+}

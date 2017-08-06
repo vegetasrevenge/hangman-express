@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hangman</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+  </head>
+  <body>
+
+
+
+    <div class="container">
+      <div id="counter">
+        <h2>Guesses remaining: <span id="numOfGuessRemaining">{{ guessesRemaining }}</span></h2>
+        <h2>Letters Guessed: <span id="guessed-letters">{{ #guesses }}<span>{{ . }}, </span>{{ /guesses }}</span></h2>
+      </div>
+      <h1 id="game-title">Hangman!</h1>
+      <h1 id="magic-word">
+
+        {{ #blanks }}
+        <span class="word-letter">{{.}}</span>
+        {{ /blanks }}
+
+      </h1>
+      <div class="guess-div">
+        <form class="" action="/" method="POST">
+          <input type="text" name="guess" maxlength="1" autofocus />
+        </form>
+        <h1>Score: {{ score }}</h1>
+      </div>
+
+      <div class="">
+          <h2 id="message">
+            {{ #guessed }}
+            OOPS! Gimme another, did you even look at the array?
+            {{ /guessed }}
+          </h2>
+          <h1>{{ err }}</h1>
+      </div>
+    </div>
+
+    <div class="game-over">
+      {{ #gameover }}
+      Game Over :( Play Again!
+      {{ /gameover }}
+    </div>
+
+
+  </body>
+</html>
