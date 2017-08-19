@@ -46,6 +46,14 @@ app.get('/', (req, res) => {
   res.render('index', req.session);
 });
 
+app.get('/winner', (req, res) => {
+  res.render('winner');
+});
+
+app.get('/gameover', (req, res) => {
+  res.render('gameover')
+});
+
 app.post('/', (req, res) => {
   let userInput = req.body.guess.toUpperCase();
 
@@ -109,13 +117,13 @@ app.post('/', (req, res) => {
   if (req.session.guessesRemaining == 0 && req.session.blanksRemaining > 0) {
     req.session.gameover = true;
     newGame();
-    res.redirect('/')
+    res.redirect('/gameover')
   }
 
-  if (req.session.guessesRemaining == 0 && req.session.blanksRemaining == 0) {
+  if (req.session.blanksRemaining == 0) {
     req.session.winner = true;
     newGame();
-    res.redirect('/');
+    res.redirect('/winner');
   }
 
   function newGame () {
@@ -133,8 +141,6 @@ app.post('/', (req, res) => {
     req.session.alreadyGuessed = false;
     req.session.errorMessage = '';
   };
-
-
   res.redirect('/');
 });
 
