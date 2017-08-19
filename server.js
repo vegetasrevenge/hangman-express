@@ -24,11 +24,13 @@ app.use(session({
   resave: false
 }));
 
+
 app.get('/', (req, res) => {
 
   if (!req.session.word || req.session.word === '' ) {
     // let index = Math.floor(Math.random() * words.length);
     req.session.word = randomWords().toUpperCase().split('');
+    console.log(req.session.word);
     req.session.blanks = [];
     req.session.word.forEach(function(letter) {
       req.session.blanks.push('_');
@@ -102,13 +104,37 @@ app.post('/', (req, res) => {
   } else {
     req.session.incorrectCount++;
     req.session.guessesRemaining--;
-  }  
-//need to work on this
-  function gameOver(){
-    if(req.session.guessesRemaining === 0 && req.session.guesses !== req.session.word ) {
-      req.session.gameover = true;
-    }
+  }
+
+  if (req.session.guessesRemaining == 0 && req.session.blanksRemaining > 0) {
+    req.session.gameover = true;
+    newGame();
+    res.redirect('/')
+  }
+
+  if (req.session.guessesRemaining == 0 && req.session.blanksRemaining == 0) {
+    req.session.winner = true;
+    newGame();
+    res.redirect('/');
+  }
+
+  function newGame () {
+    req.session.word = randomWords().toUpperCase().split('');
+    console.log(req.session.word);
+    req.session.blanks = [];
+    req.session.word.forEach(function(letter) {
+      req.session.blanks.push('_');
+    });
+    req.session.blanksRemaining = req.session.blanks.length;
+    req.session.correctCount = 0;
+    req.session.incorrectCount = 0;
+    req.session.guesses = [];
+    req.session.guessesRemaining = req.session.word.length;
+    req.session.alreadyGuessed = false;
+    req.session.errorMessage = '';
   };
+
+
   res.redirect('/');
 });
 
