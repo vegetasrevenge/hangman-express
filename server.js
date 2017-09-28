@@ -5,10 +5,13 @@ const fs = require('file-system');
 const mustacheEx = require('mustache-express');
 const randomWords = require('random-words');
 const words = fs.readFileSync("./words", "utf-8").toLowerCase().split("\n");
+const dotenv = require('dotenv').config();
 
 
 const app = express();
 
+let port = process.env.PORT || 3000;
+console.log(port);
 app.engine('mustache', mustacheEx());
 
 app.set('view engine', 'mustache');
@@ -144,6 +147,6 @@ app.post('/', (req, res) => {
   res.redirect('/');
 });
 
-app.listen(3131, function(){
-  console.log('listening on MST3131');
+app.listen(port, () =>{
+  console.log(`Listening on PORT ${ port }.`);
 });
