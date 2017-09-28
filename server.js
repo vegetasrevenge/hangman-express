@@ -4,7 +4,7 @@ const session = require('express-session');
 const fs = require('file-system');
 const mustacheEx = require('mustache-express');
 const randomWords = require('random-words');
-const words = fs.readFileSync("/usr/share/dict/words", "utf-8").toLowerCase().split("\n");
+const words = fs.readFileSync("./words", "utf-8").toLowerCase().split("\n");
 
 
 const app = express();
